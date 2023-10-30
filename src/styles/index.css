@@ -3,3 +3,54 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+button {
+  border: 0;
+}
+
+.container {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 50px;
+}
+
+.title {
+  margin-bottom: 100px;
+}
+
+.taskAdder {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.addTaskInput {
+  color: rgb(37, 37, 37);
+  max-width: 100%;
+  width: 100%;
+  font-size: 20px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 3px solid #b0b0b0;
+}
+
+.addTaskInput::placeholder {
+  color: #b0b0b0;
+  opacity: 1; /* Firefox */
+}
+
+.addTaskInput:focus {
+  border: 0;
+  color: rgb(37, 37, 37);
+}
+
+.btnAddTask {
+  outline: none;
+  background-color: #89d7ad;
+  border: 3px solid #51af7c;
+  padding: 10px 15px;
+  font-size: 20px;
+  border-radius: 8px;
+}
