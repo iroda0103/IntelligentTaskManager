@@ -43,13 +43,17 @@ div {
   padding: 10px 15px;
   border-radius: 8px;
   border: 3px solid #b0b0b0;
+  /* outline: none; */
 }
 
 .addTaskInput::placeholder {
   color: #b0b0b0;
-  opacity: 1; /* Firefox */
+  opacity: 1;
 }
-
+.addTaskInput:focus {
+  border: 0;
+  outline: 3px solid #616161;
+}
 .errorInput {
   border-color: rgb(216, 89, 89);
   color: red;
@@ -59,8 +63,11 @@ div {
   color: rgb(194, 127, 127);
 }
 .addTaskInput:focus {
-  border: 0;
   color: rgb(37, 37, 37);
+}
+
+.errorInput:focus {
+  outline: 3px solid rgb(202, 50, 50);
 }
 
 .btnAddTask {
