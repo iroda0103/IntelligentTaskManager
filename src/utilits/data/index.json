@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "taskName": "Futbol o'ynash",
+    "time": "01.11.2023 13:02",
+    "completed": false
+  },
+  {
+    "id": 2,
+    "taskName": "Sut sotib olish",
+    "time": "01.11.2023 18:00",
+    "completed": false
+  },
+  {
+    "id": 3,
+    "taskName": "Non sotib olish",
+    "time": "01.11.2023 9:00",
+    "completed": true
+  },
+  {
+    "id": 4,
+    "taskName": "Bankga borish",
+    "time": "31.10.2023 9:00",
+    "completed": false
+  },
+  {
+    "id": 5,
+    "taskName": "Darsga borish",
+    "time": "31.10.2023 9:00",
+    "completed": false
+  },
+  {
+    "id": 6,
+    "taskName": "XOna tozalash",
+    "time": "31.10.2023 9:00",
+    "completed": true
+  },
+  {
+    "id": 7,
+    "taskName": "uy tozalash",
+    "time": "31.10.2023 12:00",
+    "completed": false
+  },
+  {
+    "id": 8,
+    "taskName": "uy tozalash",
+    "time": "31.11.2023 12:00",
+    "completed": false
+  }
+]
