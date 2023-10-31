@@ -23,6 +23,24 @@ function TaskAdder({ changeTaskData }) {
     }.${tomorrow.getFullYear()}`;
   }
 
+  function isValidDate(day) {
+    const dateSplit = day.split(".");
+    const date = +dateSplit[0];
+    const month = +dateSplit[1];
+    const years = +dateSplit[2];
+
+    return date <= 31 && month <= 12 && years >= 2023;
+  }
+
+  function isValidTime(time) {
+    console.log(time);
+    const dateSplit = time.split(":");
+    const hours = +dateSplit[0];
+    const minutes = +dateSplit[1];
+    console.log(hours, minutes);
+    return hours <= 23 && minutes <= 60;
+  }
+
   function handleAddTask() {
     let bugun = taskName.match(/bugun/i);
     let ertaga = taskName.match(/ertaga/i);
@@ -34,8 +52,19 @@ function TaskAdder({ changeTaskData }) {
       bugun = "bugun";
     }
 
-    if (taskDay && !taskTime) {
-      taskTime = defaultTime;
+    if (taskDay) {
+      taskDay = taskDay[0];
+      if (!taskTime) {
+        taskTime = defaultTime;
+      }
+    }
+
+    if (taskTime) {
+      taskTime = taskTime[0];
+
+      if (!taskTime) {
+        taskTime = defaultTime;
+      }
     }
 
     if (bugun) {
@@ -72,6 +101,14 @@ function TaskAdder({ changeTaskData }) {
       }
     }
 
+    if (taskTime.split(":")[0].length == 1) {
+      taskTime = "0" + taskTime;
+    }
+
+    if (taskDay.split(".")[0].length == 1) {
+      taskDay = "0" + taskDay;
+    }
+
     const timeTask = taskDay + " " + taskTime;
     taskName = cleningFromKeywords(taskName, /bugun/);
     taskName = cleningFromKeywords(taskName, /ertaga/);
@@ -79,26 +116,37 @@ function TaskAdder({ changeTaskData }) {
     taskName = cleningFromKeywords(taskName, /\d\d.\d\d.\d\d\d\d/);
 
     if (taskName.trim() == "") {
-      setClassName("xato");
+      setClassName("nameError");
+    } else if (!isValidDate(taskDay) || !isValidTime(taskTime)) {
+      setClassName("timeError");
+      setTaskName("");
     } else {
       changeTaskData({
         taskName,
         time: timeTask,
         completed: false
       });
+      if (className == "") {
+        setTaskName("");
+      }
 
-      setTaskName("");
-      setClassName("");
+      // setClassName("");
     }
   }
 
   function changeAddTaskName(e) {
-    if (e.target.value == "") {
+    if (e.target.value != "") {
       setClassName("");
     }
     setTaskName(e.target.value);
   }
 
+  const handleEnterKeyPress = (e) => {
+    if (e.key === "Enter") {
+      console.log("sdsd", e.target.value);
+      handleAddTask();
+    }
+  };
   return (
     <div>
       <div className="taskAdder">
@@ -109,11 +157,14 @@ function TaskAdder({ changeTaskData }) {
               className == "" ? "addTaskInput" : "addTaskInput errorInput"
             }
             placeholder={
-              className != ""
-                ? "Task matnini kiritish shart"
-                : "Yangi vazifa qo'shish"
+              className == ""
+                ? "Yangi vazifa qo'shish"
+                : className == "timeError"
+                ? "Vaqtni to'g'ri kiriting mavjud bo'lmagan vaqt"
+                : "Task matnini kiritish shart"
             }
             onChange={(e) => changeAddTaskName(e)}
+            onKeyDown={handleEnterKeyPress}
             required
           />
           <div className="mobile">
