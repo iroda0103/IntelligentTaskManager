@@ -47,14 +47,13 @@ function TaskBody({ data, changeTaskDataCompleted }) {
   taskGroup.Ertaga = taskGroup.Ertaga.map((task) => {
     return { ...task, time: task.time.split(" ")[1] };
   });
-  taskGroup.Keyin = data.filter(
-    (task) =>{
-      const farq=ConvertTime(task.time);
-      const farq1=taskGroup.Ertaga.find(task2=>task2.id==task.id);
-      return ((tomorrow<farq) && !farq1 )
-    }
-  );
-console.log(taskGroup);
+
+  taskGroup.Keyin = data.filter((task) => {
+    const farq = ConvertTime(task.time);
+    const farq1 = taskGroup.Ertaga.find((task2) => task2.id == task.id);
+    return tomorrow < farq && !farq1;
+  });
+
   return (
     <div>
       {Object.entries(taskGroup).map(([key, value]) =>

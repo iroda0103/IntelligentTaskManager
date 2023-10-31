@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Label } from "../utilits/style-components/Label";
 import { Span } from "../utilits/style-components/Span";
 
 function Task(props) {
-  const { taskName, completed, time,id,changeTaskDataCompleted } = props;
-  const [inputCompleted, setinputCompleted] = useState(completed);
+  const { taskName, completed, time, id, changeTaskDataCompleted } = props;
 
   function handleCopleted() {
-    console.log(id);
-    // setinputCompleted(!inputCompleted)
     changeTaskDataCompleted(id);
   }
 
@@ -16,16 +13,16 @@ function Task(props) {
     <div className="task">
       <div className="checkbox" onClick={handleCopleted}>
         <input
-          checked={inputCompleted}
+          checked={completed}
           type="checkbox"
           onChange={handleCopleted}
           className="input-assumpte"
           id="input-confidencial"
         />
-        <Label $completed={inputCompleted}>{taskName}</Label>
+        <Label $completed={completed}>{taskName}</Label>
       </div>
 
-      <Span $completed={inputCompleted}>{time}</Span>
+      <Span $completed={completed}>{time}</Span>
     </div>
   );
 }

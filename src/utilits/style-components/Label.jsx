@@ -11,7 +11,8 @@ const Label = styled.label`
   &::before {
     border: 3px solid #cacece;
     border-radius: 5px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.05),
       inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
     display: inline-block;
     background-color: ${BgColor};

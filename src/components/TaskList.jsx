@@ -12,7 +12,6 @@ function TaskList(props) {
     if (timeA < timeB) return 1;
     return 0;
   });
-  // data = data.sort((a, b) =>ConvertTime(a).getTime()-ConvertTime(b).getTime(b));
 
   const completedData = data.filter((task) => task.completed);
   const notCompletedData = data.filter((task) => !task.completed);
