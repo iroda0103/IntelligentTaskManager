@@ -4,13 +4,23 @@ import Time from "./Time";
 function TaskAdder({ changeTaskData }) {
   let [taskName, setTaskName] = useState("");
   let [className, setClassName] = useState("");
+  const defaultTime = "09:00";
+  const oneDateMilliSecunds = 24 * 60 * 60 * 1000;
 
   function cleningFromKeywords(name, key) {
     const cleaningWorld = name.match(key);
     if (cleaningWorld) {
       name = name.replace(cleaningWorld, "");
     }
-    return { name, cleaningWorld };
+    return name;
+  }
+
+  function tommorowDate(today) {
+    const tomorrow = new Date(today.getTime() + oneDateMilliSecunds);
+
+    return `${tomorrow.getDate()}.${
+      tomorrow.getMonth() + 1
+    }.${tomorrow.getFullYear()}`;
   }
 
   function handleAddTask() {
@@ -25,7 +35,7 @@ function TaskAdder({ changeTaskData }) {
     }
 
     if (taskDay && !taskTime) {
-      taskTime = "09:00";
+      taskTime = defaultTime;
     }
 
     if (bugun) {
@@ -41,13 +51,12 @@ function TaskAdder({ changeTaskData }) {
 
         if (minutes == 0) {
           taskTime = `${hours}:00`;
-        } else if (hours == 23 && minutes != 0) {
-          const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+        }
 
+        //Bugun kun vaqt 23:00dan o'tgan bo'lsa vaqti ertangi kunni ko'rsatadi
+        else if (hours == 23 && minutes != 0) {
           taskTime = "00:00";
-          taskDay = `${tomorrow.getDate()}.
-            ${tomorrow.getMonth() + 1}.
-            ${tomorrow.getFullYear()}`;
+          taskDay = tommorowDate(today);
         } else {
           taskTime = `${hours + 1}:00`;
         }
@@ -56,22 +65,19 @@ function TaskAdder({ changeTaskData }) {
 
     if (ertaga) {
       const today = new Date();
-      let tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
-      taskDay = `${tomorrow.getDate()}.${
-        tomorrow.getMonth() + 1
-      }.${tomorrow.getFullYear()}`;
+      taskDay = tommorowDate(today);
 
       if (!taskTime) {
-        taskTime = "09:00";
+        taskTime = defaultTime;
       }
     }
 
     const timeTask = taskDay + " " + taskTime;
-    taskName = cleningFromKeywords(taskName, /bugun/).name;
-    taskName = cleningFromKeywords(taskName, /ertaga/).name;
-    taskName = cleningFromKeywords(taskName, /\d\d:\d\d/).name;
-    taskName = cleningFromKeywords(taskName, /\d\d.\d\d.\d\d\d\d/).name;
-    // console.log(taskName,'ppp');
+    taskName = cleningFromKeywords(taskName, /bugun/);
+    taskName = cleningFromKeywords(taskName, /ertaga/);
+    taskName = cleningFromKeywords(taskName, /\d\d:\d\d/);
+    taskName = cleningFromKeywords(taskName, /\d\d.\d\d.\d\d\d\d/);
+
     if (taskName.trim() == "") {
       setClassName("xato");
     } else {
@@ -82,10 +88,10 @@ function TaskAdder({ changeTaskData }) {
       });
 
       setTaskName("");
-      setClassName("")
+      setClassName("");
     }
   }
-  // ${taskDay?taskDay:new Date()} ${taskTime ? taskTime :"00:00"}
+
   function changeAddTaskName(e) {
     if (e.target.value == "") {
       setClassName("");
