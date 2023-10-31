@@ -33,11 +33,9 @@ function TaskAdder({ changeTaskData }) {
   }
 
   function isValidTime(time) {
-    console.log(time);
     const dateSplit = time.split(":");
     const hours = +dateSplit[0];
     const minutes = +dateSplit[1];
-    console.log(hours, minutes);
     return hours <= 23 && minutes <= 60;
   }
 
@@ -52,16 +50,12 @@ function TaskAdder({ changeTaskData }) {
       bugun = "bugun";
     }
 
-    if (taskDay) {
-      taskDay = taskDay[0];
-      if (!taskTime) {
-        taskTime = defaultTime;
-      }
-    }
-
     if (taskTime) {
       taskTime = taskTime[0];
+    }
 
+    if (taskDay) {
+      taskDay = taskDay[0];
       if (!taskTime) {
         taskTime = defaultTime;
       }
@@ -143,7 +137,6 @@ function TaskAdder({ changeTaskData }) {
 
   const handleEnterKeyPress = (e) => {
     if (e.key === "Enter") {
-      console.log("sdsd", e.target.value);
       handleAddTask();
     }
   };
