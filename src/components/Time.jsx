@@ -7,7 +7,7 @@ function addZero(time) {
 export const Time = () => {
   const [date, setDate] = useState(new Date());
 
-  const time = `${addZero(date.getDay())}.
+  const time = `${addZero(date.getDate())}.
   ${addZero(date.getMonth() + 1)}.
   ${date.getFullYear()}, 
   ${addZero(date.getHours())}:
@@ -15,7 +15,7 @@ export const Time = () => {
 
   useEffect(() => {
     const timer = setInterval(() => setDate(new Date()), 1000);
-    
+
     return function cleanup() {
       clearInterval(timer);
     };
