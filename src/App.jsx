@@ -17,6 +17,7 @@ function App() {
   const changeTaskDataCompleted = (id) => {
     const findTask = taskData.find((task) => task.id == id);
     findTask.completed = !findTask.completed;
+    localStorage.setItem("data", JSON.stringify([...taskData]));
     setTaskData([...taskData]);
   };
 
