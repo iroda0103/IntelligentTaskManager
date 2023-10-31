@@ -3,13 +3,14 @@ import Statistika from "./components/Statistika";
 import TaskAdder from "./components/TaskAdder";
 import TaskBody from "./components/TaskBody";
 import Title from "./components/Title";
-import data from "./utilits/data";
 
 function App() {
-  const [taskData, setTaskData] = useState(data);
+  const data = localStorage.getItem("data");
+  const [taskData, setTaskData] = useState(data ? JSON.parse(data) : []);
 
   const changeTaskData = (value) => {
     value.id = taskData.length + 1;
+    localStorage.setItem("data", JSON.stringify([value, ...taskData]));
     setTaskData([value, ...taskData]);
   };
 
@@ -19,8 +20,8 @@ function App() {
     setTaskData([...taskData]);
   };
 
-  const done = taskData.filter((task) => task.completed).length;
-  const unfulfilled = taskData.length - done;
+  const done = taskData?.filter((task) => task.completed).length;
+  const unfulfilled = taskData?.length - done;
 
   return (
     <div className="container">
